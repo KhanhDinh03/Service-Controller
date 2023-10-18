@@ -37,22 +37,14 @@ namespace Service_Controller
                 wmiService.Get();
 
                 dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], scTemp.Status, scTemp.StartType);
-                /*
-                if (scTemp.Status == ServiceControllerStatus.Running)
-                {
-                    dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], sc.StartType, scTemp.StartType);
-                }
-                else
-                {
-                    dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], "", scTemp.StartType);
-                }
-                */
             }
         }
 
         ServiceController sc = new ServiceController();
+        int row = -1;
         private void dgv_service_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            row = dgv_service.CurrentCell.RowIndex;
             string service_name = "";
             string service_type = "";
 
@@ -112,8 +104,11 @@ namespace Service_Controller
                 sc.WaitForStatus(ServiceControllerStatus.Running);
                 DialogResult result = MessageBox.Show("Start the service successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK) 
-                { 
-                    Load_Service(); 
+                {
+                    dgv_service.Rows[row].Cells[3].Value = "Running";
+                    btn_start.Enabled = false;
+                    btn_stop.Enabled = true;
+                    btn_restart.Enabled = true;
                 }
             }
             catch (InvalidOperationException)
@@ -135,7 +130,10 @@ namespace Service_Controller
                 DialogResult result = MessageBox.Show("Stop the service successfully.", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (result == DialogResult.OK)
                 {
-                    Load_Service();
+                    dgv_service.Rows[row].Cells[3].Value = "Stopped";
+                    btn_start.Enabled = true;
+                    btn_stop.Enabled = false;
+                    btn_restart.Enabled = false;
                 }
             }
             catch (InvalidOperationException)
@@ -182,9 +180,19 @@ namespace Service_Controller
 
         private void btn_properties_Click(object sender, EventArgs e)
         {
-            Form2 properties = new Form2(sc);
+            string status = dgv_service.Rows[row].Cells[3].ToString();
+            string startup_type = dgv_service.Rows[row].Cells[4].ToString();
+            Form2 properties = new Form2(sc, status, startup_type);
+            properties.DataReady += Form2_DataReady;
             properties.Text = sc.DisplayName + " Properties";
             properties.ShowDialog();
+        }
+
+        private void Form2_DataReady(object sender, Tuple<string, string> data)
+        {
+            dgv_service.Rows[row].Cells[3].Value = data.Item1;
+            dgv_service.Rows[row].Cells[4].Value = data.Item2;
+            dgv_service.InvalidateRow(row);
         }
     }
 }

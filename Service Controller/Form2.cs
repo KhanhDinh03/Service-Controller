@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Management;
 using System.ServiceProcess;
 using System.Windows.Forms;
@@ -8,11 +9,15 @@ namespace Service_Controller
     public partial class Form2 : Form
     {
         ServiceController sc = new ServiceController();
+        string status = "";
+        string startup_type = "";
 
-        public Form2(ServiceController sc)
+        public Form2(ServiceController sc, string status, string startup_type)
         {
             InitializeComponent();
             this.sc = sc;
+            this.status = status;
+            this.startup_type = startup_type;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -26,18 +31,17 @@ namespace Service_Controller
             tb_description.Text = (string)wmiService["Description"];
             tb_path.Text = (string)wmiService["PathName"];
 
-            if (sc.StartType == ServiceStartMode.Disabled)
+            if (sc.StartType == ServiceStartMode.Automatic)
             {
-                cb_status_type.SelectedIndex = 2;
-            }
-            else if (sc.StartType == ServiceStartMode.Manual)
+                cb_startup_type.SelectedIndex = 0;
+            } else if (sc.StartType == ServiceStartMode.Manual)
             {
-                cb_status_type.SelectedIndex = 1;
-            }
-            else
+                cb_startup_type.SelectedIndex = 1;
+            } else
             {
-                cb_status_type.SelectedIndex = 0;
+                cb_startup_type.SelectedIndex = 2;
             }
+
 
             if (sc.Status == ServiceControllerStatus.Running)
             {
@@ -92,17 +96,64 @@ namespace Service_Controller
             this.Hide();
         }
 
+        public event EventHandler<Tuple<string, string>> DataReady;
+        private void OnDataReady(string status, string startup_type)
+        {
+            DataReady?.Invoke(this, Tuple.Create(status, startup_type));
+        }
         private void btnnn_ok_Click(object sender, EventArgs e)
         {
             this.Hide();
+            OnDataReady(lb_sv_status.Text, cb_startup_type.Text);
         }
 
         private void btn_apply_Click(object sender, EventArgs e)
         {
-            
+            if (cb_startup_type.SelectedIndex == 0)
+            {
+                string promp = "sc config "+ sc.ServiceName +" start= auto";
+                Set_Startup_Type(promp);
+            }
+            else if (cb_startup_type.SelectedIndex == 1)
+            {
+                string promp = "sc config "+ sc.ServiceName +" start= demand";
+                Set_Startup_Type(promp);
+            } 
+            else
+            {
+                string promp = "sc config "+ sc.ServiceName +" start= disabled";
+                Set_Startup_Type(promp);
+            }
+            btn_apply.Enabled = false;
         }
 
-        private void cb_status_type_SelectedIndexChanged(object sender, EventArgs e)
+        void Set_Startup_Type(string promp)
+        {
+            Process cmdProcess = new Process();
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Verb = "runas",
+                UseShellExecute = false,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            };
+            cmdProcess.StartInfo = startInfo;
+            cmdProcess.Start();
+            cmdProcess.StandardInput.WriteLine(promp);
+            cmdProcess.StandardInput.Close();
+            cmdProcess.WaitForExit();
+            cmdProcess.Close();
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            OnDataReady(lb_sv_status.Text, cb_startup_type.Text);
+        }
+
+        private void cb_startup_type_SelectedIndexChanged(object sender, EventArgs e)
         {
             btn_apply.Enabled = true;
         }

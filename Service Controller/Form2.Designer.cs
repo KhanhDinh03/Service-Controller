@@ -37,7 +37,7 @@
             this.btn_start = new System.Windows.Forms.Button();
             this.lb_sv_status = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cb_status_type = new System.Windows.Forms.ComboBox();
+            this.cb_startup_type = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tb_path = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -127,19 +127,19 @@
             this.label6.TabIndex = 47;
             this.label6.Text = "Service status:";
             // 
-            // cb_status_type
+            // cb_startup_type
             // 
-            this.cb_status_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_status_type.FormattingEnabled = true;
-            this.cb_status_type.Items.AddRange(new object[] {
+            this.cb_startup_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_startup_type.FormattingEnabled = true;
+            this.cb_startup_type.Items.AddRange(new object[] {
             "Automatic",
             "Manual",
             "Disabled"});
-            this.cb_status_type.Location = new System.Drawing.Point(107, 208);
-            this.cb_status_type.Name = "cb_status_type";
-            this.cb_status_type.Size = new System.Drawing.Size(255, 21);
-            this.cb_status_type.TabIndex = 46;
-            this.cb_status_type.SelectedIndexChanged += new System.EventHandler(this.cb_status_type_SelectedIndexChanged);
+            this.cb_startup_type.Location = new System.Drawing.Point(107, 208);
+            this.cb_startup_type.Name = "cb_startup_type";
+            this.cb_startup_type.Size = new System.Drawing.Size(255, 21);
+            this.cb_startup_type.TabIndex = 46;
+            this.cb_startup_type.SelectedIndexChanged += new System.EventHandler(this.cb_startup_type_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -154,17 +154,17 @@
             // 
             this.tb_path.BackColor = System.Drawing.Color.White;
             this.tb_path.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_path.Location = new System.Drawing.Point(17, 175);
+            this.tb_path.Location = new System.Drawing.Point(17, 165);
             this.tb_path.Multiline = true;
             this.tb_path.Name = "tb_path";
             this.tb_path.ReadOnly = true;
-            this.tb_path.Size = new System.Drawing.Size(345, 22);
+            this.tb_path.Size = new System.Drawing.Size(345, 32);
             this.tb_path.TabIndex = 44;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 159);
+            this.label4.Location = new System.Drawing.Point(14, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 43;
@@ -251,7 +251,7 @@
             this.Controls.Add(this.btn_start);
             this.Controls.Add(this.lb_sv_status);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.cb_status_type);
+            this.Controls.Add(this.cb_startup_type);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tb_path);
             this.Controls.Add(this.label4);
@@ -268,6 +268,7 @@
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Properties";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -284,7 +285,7 @@
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Label lb_sv_status;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cb_status_type;
+        private System.Windows.Forms.ComboBox cb_startup_type;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tb_path;
         private System.Windows.Forms.Label label4;

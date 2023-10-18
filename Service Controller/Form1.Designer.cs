@@ -134,6 +134,8 @@
             // 
             this.dgv_service.AllowUserToAddRows = false;
             this.dgv_service.AllowUserToDeleteRows = false;
+            this.dgv_service.AllowUserToResizeColumns = false;
+            this.dgv_service.AllowUserToResizeRows = false;
             this.dgv_service.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_service.BackgroundColor = System.Drawing.Color.White;
             this.dgv_service.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -147,6 +149,7 @@
             this.dgv_service.Location = new System.Drawing.Point(0, 0);
             this.dgv_service.Name = "dgv_service";
             this.dgv_service.ReadOnly = true;
+            this.dgv_service.RowHeadersVisible = false;
             this.dgv_service.Size = new System.Drawing.Size(800, 411);
             this.dgv_service.TabIndex = 0;
             this.dgv_service.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_service_CellClick);
@@ -177,7 +180,7 @@
             // 
             // Column4
             // 
-            this.Column4.HeaderText = "Status Type";
+            this.Column4.HeaderText = "Startup Type";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
