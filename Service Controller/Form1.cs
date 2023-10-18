@@ -36,14 +36,17 @@ namespace Service_Controller
                 wmiService = new ManagementObject("Win32_Service.Name='" + scTemp.ServiceName + "'");
                 wmiService.Get();
 
+                dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], scTemp.Status, scTemp.StartType);
+                /*
                 if (scTemp.Status == ServiceControllerStatus.Running)
                 {
-                    dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], "Running", scTemp.StartType);
+                    dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], sc.StartType, scTemp.StartType);
                 }
                 else
                 {
                     dgv_service.Rows.Add(scTemp.ServiceName, scTemp.DisplayName, wmiService["Description"], "", scTemp.StartType);
                 }
+                */
             }
         }
 
@@ -52,6 +55,7 @@ namespace Service_Controller
         {
             string service_name = "";
             string service_type = "";
+
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 dgv_service.Rows[e.RowIndex].Selected = true;

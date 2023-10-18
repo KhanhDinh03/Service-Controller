@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.label8 = new System.Windows.Forms.Label();
             this.btnnn_ok = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -138,6 +139,7 @@
             this.cb_status_type.Name = "cb_status_type";
             this.cb_status_type.Size = new System.Drawing.Size(255, 21);
             this.cb_status_type.TabIndex = 46;
+            this.cb_status_type.SelectedIndexChanged += new System.EventHandler(this.cb_status_type_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -152,11 +154,11 @@
             // 
             this.tb_path.BackColor = System.Drawing.Color.White;
             this.tb_path.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_path.Location = new System.Drawing.Point(119, 159);
+            this.tb_path.Location = new System.Drawing.Point(17, 175);
             this.tb_path.Multiline = true;
             this.tb_path.Name = "tb_path";
             this.tb_path.ReadOnly = true;
-            this.tb_path.Size = new System.Drawing.Size(243, 35);
+            this.tb_path.Size = new System.Drawing.Size(345, 22);
             this.tb_path.TabIndex = 44;
             // 
             // label4
@@ -226,12 +228,14 @@
             // 
             // btn_apply
             // 
+            this.btn_apply.Enabled = false;
             this.btn_apply.Location = new System.Drawing.Point(294, 362);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(68, 23);
             this.btn_apply.TabIndex = 55;
             this.btn_apply.Text = "Apply";
             this.btn_apply.UseVisualStyleBackColor = true;
+            this.btn_apply.Click += new System.EventHandler(this.btn_apply_Click);
             // 
             // Form2
             // 
@@ -258,6 +262,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form2";

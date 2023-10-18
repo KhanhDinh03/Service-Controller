@@ -26,16 +26,13 @@ namespace Service_Controller
             tb_description.Text = (string)wmiService["Description"];
             tb_path.Text = (string)wmiService["PathName"];
 
-            string status_type = sc.ServiceType.ToString();
-            if (status_type == "Disabled")
+            if (sc.StartType == ServiceStartMode.Disabled)
             {
                 cb_status_type.SelectedIndex = 2;
-                return;
             }
-            else if (status_type == "Manual")
+            else if (sc.StartType == ServiceStartMode.Manual)
             {
                 cb_status_type.SelectedIndex = 1;
-                return;
             }
             else
             {
@@ -52,6 +49,8 @@ namespace Service_Controller
                 lb_sv_status.Text = "Stopped";
                 btn_stop.Enabled = false;
             }
+
+            btn_apply.Enabled = false;
         }
 
         private void btn_start_Click(object sender, EventArgs e)
@@ -96,6 +95,16 @@ namespace Service_Controller
         private void btnnn_ok_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void btn_apply_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cb_status_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btn_apply.Enabled = true;
         }
     }
 }
