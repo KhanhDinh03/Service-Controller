@@ -1,6 +1,6 @@
 ﻿namespace Service_Controller
 {
-    partial class form1
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
