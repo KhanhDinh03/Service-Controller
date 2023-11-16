@@ -469,6 +469,7 @@
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             this.dgv_service.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_service.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_service.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dgv_service.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.dgv_service.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_service.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -526,6 +527,7 @@
             this.dgv_service.ReadOnly = true;
             this.dgv_service.RowHeadersVisible = false;
             this.dgv_service.RowTemplate.Height = 40;
+            this.dgv_service.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_service.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_service.Size = new System.Drawing.Size(834, 411);
             this.dgv_service.TabIndex = 1;
